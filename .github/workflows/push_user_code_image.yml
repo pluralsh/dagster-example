@@ -22,5 +22,4 @@ jobs:
     - name: Build the user_code Docker image
       run: |
           docker build . --file Dockerfile_user_code --tag ghcr.io/user_code/user_code:$(date +%s)
-          docker run ghcr.io/user_code/user_code:$(date +%s)
           docker push ghcr.io/user_code/user_code:$(date +%s)

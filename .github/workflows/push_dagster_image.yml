@@ -22,5 +22,4 @@ jobs:
     - name: Build the dagster Docker image
       run: |
           docker build . --file Dockerfile_dagster --tag ghcr.io/dagster/dagster:$(date +%s)
-          docker run ghcr.io/dagster/dagster:$(date +%s)
           docker push ghcr.io/dagster/dagster:$(date +%s)
