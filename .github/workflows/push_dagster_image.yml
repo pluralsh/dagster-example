@@ -8,6 +8,9 @@ on:
     branches: [ "main" ]
     paths:
       - 'Dockerfile_dagster'
+env:
+  REGISTRY: ghcr.io
+  TAG: $(date +%s)
 jobs:
   publish-dagster-image:
     runs-on: ubuntu-latest
@@ -16,10 +19,10 @@ jobs:
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v1
       with:
-        registry: ghcr.io
+        registry: ${{ env.REGISTRY }}
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build the dagster Docker image
       run: |
-          docker build . --file Dockerfile_dagster --tag ghcr.io/dagster/dagster:$(date +%s)
-          docker push ghcr.io/dagster/dagster:$(date +%s)
+          docker build . --file Dockerfile_dagster --tag ${{ env.REGISTRY }}/dagster/dagster:${{ env.TAG }}
+          docker push ${{ env.REGISTRY }}/dagster/dagster:${{ env.TAG }}
