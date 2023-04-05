@@ -16,9 +16,9 @@ jobs:
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v1
       with:
-      registry: ghcr.io
-      username: ${{ github.actor }}
-      password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build the user_code Docker image
       run: |
           docker build . --file Dockerfile_user_code --tag ghcr.io/user_code/user_code:$(date +%s)
