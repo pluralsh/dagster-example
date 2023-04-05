@@ -29,6 +29,9 @@ jobs:
         tags: |
           type=raw,value={{date 'YYYYMMDDHHMMSS'}}
     - name: Build the dagster Docker image
-      run: |
-          docker build . --file Dockerfile_dagster --tag ${{ env.REGISTRY }}/dagster/dagster:${{ DOCKER_METADATA_OUTPUT_VERSION }}
-          docker push ${{ env.REGISTRY }}/dagster/dagster:${{ DOCKER_METADATA_OUTPUT_VERSION }}
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: Dockerfile_dagster
+        tags: ${{ steps.metadata.outputs.tags }}
+        labels: ${{ steps.metadata.outputs.labels }}
