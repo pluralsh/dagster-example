@@ -19,7 +19,17 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        images: name/app
+        tags: |
+          type=raw,value={{date 'YYYYMMDDHHMMSS'}}
     - name: Build the user_code Docker image
-      run: |
-          docker build . --file Dockerfile_user_code --tag ghcr.io/user_code/user_code:$(date +%s)
-          docker push ghcr.io/user_code/user_code:$(date +%s)
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: Dockerfile_user_code
+        tags: ${{ steps.metadata.outputs.tags }}
+        labels: ${{ steps.metadata.outputs.labels }}
