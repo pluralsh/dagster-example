@@ -10,7 +10,6 @@ on:
       - 'Dockerfile_dagster'
 env:
   REGISTRY: ghcr.io
-  TAG: $(date +%s)
 jobs:
   publish-dagster-image:
     runs-on: ubuntu-latest
@@ -22,7 +21,14 @@ jobs:
         registry: ${{ env.REGISTRY }}
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        images: name/app
+        tags: |
+          type=raw,value={{date 'YYYYMMDDHHMMSS'}}
     - name: Build the dagster Docker image
       run: |
-          docker build . --file Dockerfile_dagster --tag ${{ env.REGISTRY }}/dagster/dagster:${{ env.TAG }}
-          docker push ${{ env.REGISTRY }}/dagster/dagster:${{ env.TAG }}
+          docker build . --file Dockerfile_dagster --tag ${{ env.REGISTRY }}/dagster/dagster:${{ steps.meta.outputs.tags }}
+          docker push ${{ env.REGISTRY }}/dagster/dagster:${{ steps.meta.outputs.tags }}
