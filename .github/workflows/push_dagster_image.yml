@@ -1,0 +1,26 @@
+name: publish_dagster_image
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'Dockerfile_dagster'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'Dockerfile_dagster'
+jobs:
+  publish-dagster-image:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+      registry: ghcr.io
+      username: ${{ github.actor }}
+      password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build the dagster Docker image
+      run: |
+          docker build . --file Dockerfile_dagster --tag ghcr.io/dagster/dagster:$(date +%s)
+          docker run ghcr.io/dagster/dagster:$(date +%s)
+          docker push ghcr.io/dagster/dagster:$(date +%s)
