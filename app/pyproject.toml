@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plural-etl"
+version = "0.0.1"
+authors = [
+    { name="Nidhin", email="test" }
+]
+
+[tool.dagster]
+module_name = "etl"
