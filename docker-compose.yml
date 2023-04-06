@@ -90,6 +90,16 @@ services:
       - docker_example_postgresql
       - docker_example_user_code
 
+  docker_example_dw:
+      image: postgres:11
+      container_name: docker_example_dw
+      environment:
+        POSTGRES_USER: "dw_user"
+        POSTGRES_PASSWORD: "dw_password"
+        POSTGRES_DB: "postgres_db"
+      networks:
+        - docker_example_network
+
 networks:
   docker_example_network:
     driver: bridge
