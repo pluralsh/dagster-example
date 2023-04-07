@@ -23,7 +23,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v4
       with:
-        images: name/app
+        images: ghcr.io/pluralsh/plural-etl
         tags: |
           type=raw,value={{date 'YYYYMMDDHHMMSS'}}
     - name: Build the user_code Docker image
