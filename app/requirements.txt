@@ -1,0 +1,6 @@
+dagster
+dagit
+dagster-docker
+pandas
+wordcloud
+matplotlib
