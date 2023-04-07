@@ -1,4 +1,4 @@
-name: publish_user_code_image
+name: push-images
 on:
   push:
     branches: [ "main" ]
