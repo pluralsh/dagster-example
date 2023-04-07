@@ -5,3 +5,15 @@ help:
 
 up: # runs dagster locally
 	docker-compose up
+
+release-vsn: # tags and pushes a new release
+	@read -p "Version: " tag; \
+	git checkout master; \
+	git pull --rebase; \
+	git tag -a $$tag -m "new release"; \
+	git push origin $$tag
+
+delete-tag:  ## deletes a tag from git locally and upstream
+	@read -p "Version: " tag; \
+	git tag -d $$tag; \
+	git push origin :$$tag
