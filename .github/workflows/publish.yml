@@ -24,6 +24,7 @@ jobs:
           ghcr.io/pluralsh/plural-etl
         tags: |
           type=semver,pattern={{version}}
+          type=semver,pattern={{raw}}
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
     - name: Set up Docker Buildx
@@ -39,6 +40,13 @@ jobs:
         platforms: linux/amd64
         cache-from: type=gha
         cache-to: type=gha,mode=max
+    - name: installing plural
+      uses: pluralsh/setup-plural@v0.1.5
+      with:
+        config: ${{ secrets.PLURAL_CONF }}
+        vsn: 0.6.18
+    - name: deploy to dagster
+      run: cat upgrade.yaml | envsubst | plural upgrade plural dagster -f -
   release:
     name: Create GitHub release
     runs-on: ubuntu-20.04

@@ -1,0 +1,7 @@
+message: updating etl image to $GITHUB_REF_NAME
+type: CONFIG
+config:
+  paths:
+  - path: .dagster.dagster.dagster-user-deployments.deployments[0].image.tag
+    value: $GITHUB_REF_NAME
+    type: STRING
