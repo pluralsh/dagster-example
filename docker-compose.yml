@@ -4,7 +4,7 @@ services:
   # This service runs the postgres DB used by dagster for run storage, schedule storage,
   # and event log storage.
   postgresql:
-    image: postgres:11
+    image: postgres:15
     container_name: postgresql
     environment:
       POSTGRES_USER: "postgres_user"
@@ -92,7 +92,7 @@ services:
       - user_code
 
   local_dw:
-      image: postgres:11
+      image: postgres:15
       container_name: local_dw
       environment:
         POSTGRES_USER: "dw_user"
