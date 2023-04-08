@@ -1,6 +1,6 @@
 import os
 
-from dagster import get_dagster_logger, job, op
+from dagster import get_dagster_logger, job, op, schedule
 
 
 @op
@@ -15,7 +15,10 @@ def report_total_size(file_sizes):
     # In real life, we'd send an email or Slack message instead of just logging:
     get_dagster_logger().info(f"Total size: {total_size}")
 
-
 @job
 def serial():
     report_total_size(get_file_sizes())
+
+@schedule(cron_schedule="*/15 * * * *", job=serial, execution_timezone="US/Central")
+def scheduled_serial(_context):
+    return {}

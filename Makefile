@@ -3,8 +3,11 @@
 help:
 	@perl -nle'print $& if m{^[a-zA-Z_-]+:.*?## .*$$}' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-up: # runs dagster locally
-	docker-compose up --remove-orphans
+local: # runs dagster locally with dagster cli
+	cd app && dagster dev
+
+up: # runs dagster locally using docker, imitating a production environment
+	docker-compose up --remove-orphans --build
 
 release-vsn: # tags and pushes a new release
 	@read -p "Version: " tag; \
