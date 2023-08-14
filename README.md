@@ -52,3 +52,5 @@ dagster:
 The CD portion is ultimately triggered by an invocation of `plural upgrade` in `.github/workflows/publish.yaml#48`.  You can see it pipes in the structure from the `upgrade.yaml` file at the root of the repo and substitutes some env vars.  
 
 You can theoretically modify this if there are any other attributes you'd like to configure with the update to your dagster instance, but for the most part just modifying the image tag should be sufficient like we do.
+
+To better understand this command, you can run `plural upgrade --help`
