@@ -53,4 +53,10 @@ The CD portion is ultimately triggered by an invocation of `plural upgrade` in `
 
 You can theoretically modify this if there are any other attributes you'd like to configure with the update to your dagster instance, but for the most part just modifying the image tag should be sufficient like we do.
 
-To better understand this command, you can run `plural upgrade --help`
+To better understand this command, you can run `plural upgrade --help`, but the tldr is you'll want your command to look something like:
+
+```
+plural upgrade YOUR_CLUSTER_NAME dagster -f -
+```
+
+in our example code here: https://github.com/pluralsh/dagster-example/blob/main/.github/workflows/publish.yml#L52 the cluster name (and upgrade queue name, which is the same in our api), is `plural`.
