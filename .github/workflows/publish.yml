@@ -45,7 +45,7 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
     - name: installing plural
-      uses: pluralsh/setup-plural@v0.1.9
+      uses: pluralsh/setup-plural@v0.3.0
       with:
         email: dagster-cluster@plural.sh
     - name: deploy to dagster
